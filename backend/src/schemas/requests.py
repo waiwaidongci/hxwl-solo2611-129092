@@ -28,3 +28,7 @@ class ScheduleRequest(RunRequest):
     recipient: str = Field(min_length=1, max_length=100)
     first_at: datetime
     repeat_daily: bool = False
+
+class ReissueRequest(Request):
+    report_date: str = Field(pattern=r'^\d{4}-\d{2}-\d{2}$')
+    cutoff: str = Field(pattern=r'^(?:[01][0-9]|2[0-3]):[0-5][0-9]$')

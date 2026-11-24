@@ -7,8 +7,7 @@ def validate_rows(rows):
         validator(rows)
 
 
-def analyze(rows, params):
-    raw = analysis.analyze(rows, params)
+def _shape(raw):
     tables = []
     for item in raw['tables']:
         columns = [{'key': str(i), 'label': label} for i, label in enumerate(item['columns'])]
@@ -22,3 +21,11 @@ def analyze(rows, params):
         'charts': [{'kind': 'bar', 'title': raw.get('series_title', '业务指标对比'), 'series': series}] if series else [],
         'ready': raw.get('ready', True),
     }
+
+
+def analyze(rows, params):
+    return _shape(analysis.analyze(rows, params))
+
+
+def reissue(base_rows, sources, params):
+    return _shape(analysis.reissue_analyze(base_rows, sources, params))

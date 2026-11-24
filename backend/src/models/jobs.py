@@ -50,3 +50,13 @@ class Delivery(Base):
     state: Mapped[str] = mapped_column(String(20))
     detail: Mapped[str] = mapped_column(String(500))
     created_at: Mapped[datetime] = mapped_column(default=now)
+
+class Inbox(Base):
+    __tablename__ = 'inbox'
+
+    report_date: Mapped[str] = mapped_column(String(10), primary_key=True)
+    base_run_id: Mapped[int] = mapped_column(ForeignKey('runs.id'))
+    run_id: Mapped[int] = mapped_column(ForeignKey('runs.id'))
+    cutoff: Mapped[str] = mapped_column(String(5))
+    recipient: Mapped[str] = mapped_column(String(100))
+    published_at: Mapped[datetime] = mapped_column(default=now)
